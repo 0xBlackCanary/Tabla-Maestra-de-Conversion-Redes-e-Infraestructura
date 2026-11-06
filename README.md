@@ -10,7 +10,7 @@ Este repositorio contiene una guía de referencia rápida para el cálculo de di
 
 Para facilitar las operaciones en tiempo real, he desarrollado una calculadora interactiva con interfaz Cyberpunk integrada directamente en este repositorio.
 
-🚀 **[ACCEDER A LA CALCULADORA INTERACTIVA EN VIVO]([index.html](https://0xblackcanary.github.io/Tabla-Maestra-de-Conversion-Redes-e-Infraestructura/))**
+🚀 **[ACCEDER A LA CALCULADORA INTERACTIVA EN VIVO](https://0xblackcanary.github.io/Tabla-Maestra-de-Conversion-Redes-e-Infraestructura/)**
 
 ---
 
