@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0xBlackCanary // Subnetting & Network Toolkit</title>
+    <style>
+        :root {
+            --bg-color: #0d0d11;
+            --neon-green: #00ff66;
+            --neon-pink: #ff0055;
+            --neon-blue: #00f0ff;
+            --text-color: #e2e8f0;
+            --terminal-font: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--terminal-font);
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+            background: rgba(13, 13, 17, 0.95);
+            padding: 30px;
+        }
+
+        h1, h2 {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--neon-green);
+            padding-bottom: 10px;
+        }
+
+        .bunker-panel {
+            background: #000;
+            border: 1px solid var(--neon-green);
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+
+        /* Estilos de la calculadora interactiva */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .calc-header {
+            font-weight: bold;
+            color: var(--neon-blue);
+            font-size: 14px;
+        }
+
+        .bit-box {
+            background: #111;
+            border: 2px solid #333;
+            color: #555;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .bit-box.active {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+            background: rgba(0, 255, 102, 0.05);
+        }
+
+        .result-display {
+            font-size: 22px;
+            color: var(--neon-blue);
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255, 0, 85, 0.1);
+            color: var(--neon-pink);
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>⚡ BÚNKER DE REDES // INTERACTIVE CHEATSHEET</h1>
+        <p>> Evitando las trampas de Cisco con herramientas personalizadas.</p>
+
+        <!-- SECCIÓN CALCULADORA INTERACTIVA -->
+        <h2>🎛️ Convertidor Binario / Decimal Interactivo</h2>
+        <div class="bunker-panel">
+            <p style="margin-top:0;">Haz clic sobre los bits individuales para encenderlos (1) o apagarlos (0) y ver el cálculo en tiempo real:</p>
+            
+            <div class="calc-grid">
+                <div class="calc-header">128</div>
+                <div class="calc-header">64</div>
+                <div class="calc-header">32</div>
+                <div class="calc-header">16</div>
+                <div class="calc-header">8</div>
+                <div class="calc-header">4</div>
+                <div class="calc-header">2</div>
+                <div class="calc-header">1</div>
+                
+                <div class="bit-box" onclick="toggleBit(this, 128)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 64)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 32)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 16)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 8)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 4)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 2)">0</div>
+                <div class="bit-box" onclick="toggleBit(this, 1)">0</div>
+            </div>
+
+            <div class="result-display" id="result-text">VALOR DECIMAL: <span class="highlight">0</span></div>
+        </div>
+
+        <!-- SECCIÓN EXPLICACIÓN CIDR -->
+        <h2>🌐 Guía Táctica CIDR de un Vistazo</h2>
+        <div class="bunker-panel">
+            <p><strong>/24 (Máscara por defecto):</strong> Enciende 24 bits de red (<span class="highlight">255.255.255.0</span>). Permite 1 sola red grande con <strong>254 hosts utilizables</strong>.</p>
+            <p><strong>/26 (Máscara dividida):</strong> Enciende 26 bits (<span class="highlight">255.255.255.192</span>). Segmenta la red original en <strong>4 subredes</strong> de <strong>62 hosts utilizables</strong> cada una:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subred</th>
+                        <th>Rango de Red</th>
+                        <th>Rango de IPs útiles (Hosts)</th>
+                        <th>Dirección de Broadcast</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1</td>
+                        <td class="highlight">.0</td>
+                        <td>.1 hasta .62</td>
+                        <td>.63</td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td class="highlight">.64</td>
+                        <td>.65 hasta .126</td>
+                        <td>.127</td>
+                    </tr>
+                    <tr>
+                        <td>#3</td>
+                        <td class="highlight">.128</td>
+                        <td>.129 hasta .190</td>
+                        <td>.191</td>
+                    </tr>
+                    <tr>
+                        <td>#4</td>
+                        <td class="highlight">.192</td>
+                        <td>.193 hasta .254</td>
+                        <td>.255</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let currentDecimalValue = 0;
+
+        function toggleBit(element, value) {
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+                element.innerText = "0";
+                currentDecimalValue -= value;
+            } else {
+                element.classList.add('active');
+                element.innerText = "1";
+                currentDecimalValue += value;
+            }
+            document.getElementById('result-text').innerHTML = `VALOR DECIMAL: <span class="highlight">${currentDecimalValue}</span>`;
+        }
+    </script>
+</body>
+</html>
