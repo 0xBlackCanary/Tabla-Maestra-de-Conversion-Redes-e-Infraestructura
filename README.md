@@ -1,9 +1,21 @@
-## 🔢 Tabla Maestra de Conversión: Redes e Infraestructura
+# 🔢 Network Architecture & Subnetting Toolkit
 
-Una guía de referencia rápida para agilizar el cálculo de direccionamiento IPv4, máscaras de subred y análisis de paquetes sin necesidad de calculadora.
+> "La automatización y el cálculo preciso de subredes son las bases para auditar la segmentación y el perímetro de cualquier infraestructura."
 
-### 🔺 1. Valores de Equivalencia Hexadecimal (0 - 15)
-Esencial para entender cómo se traduce un octeto binario a dos caracteres hexadecimales (muy útil para IPv6 y análisis de Wireshark).
+Este repositorio contiene una guía de referencia rápida para el cálculo de direccionamiento IPv4, conversión de sistemas numéricos (Binario, Decimal, Hexadecimal) y segmentación CIDR, diseñada para agilizar el análisis de paquetes y auditorías de red.
+
+---
+
+## 🎛️ Herramienta Interactiva
+
+Para facilitar las operaciones en tiempo real, he desarrollado una calculadora interactiva con interfaz Cyberpunk integrada directamente en este repositorio.
+
+🚀 **[ACCEDER A LA CALCULADORA INTERACTIVA EN VIVO](index.html)**
+
+---
+
+## 🔺 1. Tabla de Equivalencia Hexadecimal (0 - 15)
+Guía rápida para traducir cuartetos de bits a un único carácter hexadecimal, fundamental para análisis en Wireshark e infraestructura IPv6.
 
 | Decimal | Binario (4 Bits) | Hexadecimal |
 | :---: | :---: | :---: |
@@ -26,17 +38,28 @@ Esencial para entender cómo se traduce un octeto binario a dos caracteres hexad
 
 ---
 
-### 🌐 2. Valores Críticos de Máscaras de Subred (Octetos IPv4)
-Los números mágicos que Cisco utiliza constantemente en sus preguntas trampa sobre subredes (CIDR) y bits de red activados de izquierda a derecha.
+## 🌐 2. Análisis del CIDR de un Vistazo (/24 vs /26)
+Entendiendo la asignación de bits de red frente a los bits de host para evaluar la segmentación interna.
 
-| Decimal | Binario (8 Bits / Octeto completo) | Hexadecimal | Posiciones de Bits Activadas (Suma) |
-| :---: | :---: | :---: | :--- |
-| **0** | `00000000` | `00` | Ningún bit activado |
-| **128** | `10000000` | `80` | `128` |
-| **192** | `11000000` | `C0` | `128 + 64` |
-| **224** | `11100000` | `E0` | `128 + 64 + 32` |
-| **240** | `11110000` | `F0` | `128 + 64 + 32 + 16` |
-| **248** | `11111000` | `F8` | `128 + 64 + 32 + 16 + 8` |
-| **252** | `11111100` | `FC` | `128 + 64 + 32 + 16 + 8 + 4` |
-| **254** | `11111110` | `FE` | `128 + 64 + 32 + 16 + 8 + 4 + 2` |
-| **255** | `11111111` | `FF` | `128 + 64 + 32 + 16 + 8 + 4 + 2 + 1` |
+### ▪️ El Bloque Base: `/24`
+* **Máscara Decimal:** `255.255.255.0`
+* **Estructura de Bits:** `11111111.11111111.11111111.00000000`
+* **Capacidad:** 1 única red plana con **254 hosts direccionables** (del `.1` al `.254`).
+
+### ▪️ La Segmentación Avanzada: `/26`
+* **Máscara Decimal:** `255.255.255.192`
+* **Estructura de Bits:** `11111111.11111111.11111111.11000000`
+* **Capacidad:** Divide el bloque original en **4 subredes independientes** de **62 hosts útiles** cada una:
+
+| Subred | Dirección de Red | Rango de IPs Útiles | Dirección de Broadcast |
+| :---: | :---: | :---: | :---: |
+| **#1** | `.0` | `.1` - `.62` | `.63` |
+| **#2** | `.64` | `.65` - `.126` | `.127` |
+| **#3** | `.128` | `.129` - `.190` | `.191` |
+| **#4** | `.192` | `.193` - `.254` | `.255` |
+
+---
+
+## 🛠️ Despliegue Técnico
+El panel interactivo está construido utilizando **HTML5, CSS3 nativo con variables personalizadas para el entorno neón, y lógica de cálculo en JavaScript síncrono**. No requiere dependencias externas ni backend, garantizando un entorno ligero y portable.
+
