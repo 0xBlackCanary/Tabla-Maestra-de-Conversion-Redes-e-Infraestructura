@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0xBlackCanary // Subnetting & Network Toolkit</title>
+    <title>0xBlackCanary // Network Hex-Dec-Bin Bunker Toolkit</title>
     <style>
         :root {
             --bg-color: #0d0d11;
@@ -20,6 +20,8 @@
             font-family: var(--terminal-font);
             padding: 20px;
             margin: 0;
+            background-image: linear-gradient(rgba(18, 18, 24, 0.7) 1px, transparent 0), linear-gradient(90deg, rgba(18, 18, 24, 0.7) 1px, transparent 0);
+            background-size: 20px 20px;
         }
 
         .container {
@@ -47,7 +49,6 @@
             box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.2);
         }
 
-        /* Estilos de la calculadora interactiva */
         .calc-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -82,13 +83,22 @@
             background: rgba(0, 255, 102, 0.05);
         }
 
+        .displays-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
         .result-display {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--neon-blue);
-            margin-top: 20px;
             text-align: center;
             font-weight: bold;
             letter-spacing: 1px;
+            border: 1px dashed rgba(0, 240, 255, 0.3);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
         }
 
         table {
@@ -112,18 +122,23 @@
             color: var(--neon-green);
             font-weight: bold;
         }
+        
+        .highlight-pink {
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>⚡ BÚNKER DE REDES // INTERACTIVE CHEATSHEET</h1>
-        <p>> Evitando las trampas de Cisco con herramientas personalizadas.</p>
+        <h1>⚡ BÚNKER DE REDES // INTERACTIVE SUBNETTING</h1>
+        <p>> Herramientas personalizadas para evadir las preguntas trampa de Cisco.</p>
 
         <!-- SECCIÓN CALCULADORA INTERACTIVA -->
-        <h2>🎛️ Convertidor Binario / Decimal Interactivo</h2>
+        <h2>🎛️ Convertidor Octeto: Binario ➔ Decimal ➔ Hexadecimal</h2>
         <div class="bunker-panel">
-            <p style="margin-top:0;">Haz clic sobre los bits individuales para encenderlos (1) o apagarlos (0) y ver el cálculo en tiempo real:</p>
+            <p style="margin-top:0;">Enciende (1) o apaga (0) los bits del octeto para realizar la conversión simultánea en tiempo real:</p>
             
             <div class="calc-grid">
                 <div class="calc-header">128</div>
@@ -145,47 +160,50 @@
                 <div class="bit-box" onclick="toggleBit(this, 1)">0</div>
             </div>
 
-            <div class="result-display" id="result-text">VALOR DECIMAL: <span class="highlight">0</span></div>
+            <div class="displays-container">
+                <div class="result-display" id="decimal-text">DECIMAL: <span class="highlight">0</span></div>
+                <div class="result-display" id="hex-text">HEXADECIMAL: <span class="highlight-pink">0x00</span></div>
+            </div>
         </div>
 
         <!-- SECCIÓN EXPLICACIÓN CIDR -->
-        <h2>🌐 Guía Táctica CIDR de un Vistazo</h2>
+        <h2>🌐 Machete de Referencia Rápida: CIDR</h2>
         <div class="bunker-panel">
-            <p><strong>/24 (Máscara por defecto):</strong> Enciende 24 bits de red (<span class="highlight">255.255.255.0</span>). Permite 1 sola red grande con <strong>254 hosts utilizables</strong>.</p>
-            <p><strong>/26 (Máscara dividida):</strong> Enciende 26 bits (<span class="highlight">255.255.255.192</span>). Segmenta la red original en <strong>4 subredes</strong> de <strong>62 hosts utilizables</strong> cada una:</p>
+            <p><strong>/24 (Máscara Estándar):</strong> Utiliza 24 bits de red fijas (<span class="highlight">255.255.255.0</span>). Crea 1 segmento base con <strong>254 hosts reales</strong>.</p>
+            <p><strong>/26 (Máscara Segmentada):</strong> Suma 2 bits adicionales en el último octeto (<span class="highlight">255.255.255.192</span>). Divide la infraestructura en <strong>4 subredes operativas</strong> de <strong>62 hosts útiles</strong>:</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Subred</th>
-                        <th>Rango de Red</th>
-                        <th>Rango de IPs útiles (Hosts)</th>
-                        <th>Dirección de Broadcast</th>
+                        <th>ID Subred</th>
+                        <th>IP de Red</th>
+                        <th>Rango de IPs de Hosts</th>
+                        <th>IP de Broadcast</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>#1</td>
+                        <td>Subred #1</td>
                         <td class="highlight">.0</td>
-                        <td>.1 hasta .62</td>
+                        <td>.1 - .62</td>
                         <td>.63</td>
                     </tr>
                     <tr>
-                        <td>#2</td>
+                        <td>Subred #2</td>
                         <td class="highlight">.64</td>
-                        <td>.65 hasta .126</td>
+                        <td>.65 - .126</td>
                         <td>.127</td>
                     </tr>
                     <tr>
-                        <td>#3</td>
+                        <td>Subred #3</td>
                         <td class="highlight">.128</td>
-                        <td>.129 hasta .190</td>
+                        <td>.129 - .190</td>
                         <td>.191</td>
                     </tr>
                     <tr>
-                        <td>#4</td>
+                        <td>Subred #4</td>
                         <td class="highlight">.192</td>
-                        <td>.193 hasta .254</td>
+                        <td>.193 - .254</td>
                         <td>.255</td>
                     </tr>
                 </tbody>
@@ -206,8 +224,18 @@
                 element.innerText = "1";
                 currentDecimalValue += value;
             }
-            document.getElementById('result-text').innerHTML = `VALOR DECIMAL: <span class="highlight">${currentDecimalValue}</span>`;
+            
+            // Actualizar la interfaz decimal
+            document.getElementById('decimal-text').innerHTML = `DECIMAL: <span class="highlight">${currentDecimalValue}</span>`;
+            
+            // Calcular y formatear a Hexadecimal en mayúsculas
+            let hexValue = currentDecimalValue.toString(16).toUpperCase();
+            if (hexValue.length < 2) {
+                hexValue = "0" + hexValue; // Añadir el cero a la izquierda si es de un solo carácter
+            }
+            document.getElementById('hex-text').innerHTML = `HEXADECIMAL: <span class="highlight-pink">0x${hexValue}</span>`;
         }
     </script>
 </body>
 </html>
+
